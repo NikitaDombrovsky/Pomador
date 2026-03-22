@@ -1,0 +1,21 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Base.Theme.Projet" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/metal_highlight</item>
+        <item name="colorOnPrimary">@color/metal_dark</item>
+        <item name="colorSurface">@color/metal_surface</item>
+        <item name="colorOnSurface">@color/metal_silver</item>
+        <item name="android:windowBackground">@color/metal_dark</item>
+    </style>
+
+    <style name="Theme.Projet" parent="Base.Theme.Projet" />
+
+    <style name="MetalButton" parent="Widget.Material3.Button">
+        <item name="android:textColor">@color/metal_silver</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:letterSpacing">0.1</item>
+        <item name="backgroundTint">@color/metal_surface</item>
+        <item name="strokeColor">@color/metal_accent</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="cornerRadius">4dp</item>
+    </style>
+</resources>

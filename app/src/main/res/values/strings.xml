@@ -1,0 +1,45 @@
+<resources>
+    <string name="app_name">Таймер</string>
+
+    <!-- Главный экран -->
+    <string name="label_timer">⏱ ТАЙМЕР</string>
+    <string name="label_minutes">МИНУТЫ</string>
+    <string name="label_seconds">СЕКУНДЫ</string>
+    <string name="btn_add_min">+ 1 МИН</string>
+    <string name="btn_sub_min">− 1 МИН</string>
+    <string name="btn_add_sec">+ 1 СЕК</string>
+    <string name="btn_sub_sec">− 1 СЕК</string>
+    <string name="btn_start">▶  СТАРТ</string>
+    <string name="btn_reset">■  СБРОС</string>
+    <string name="label_tasks">📋 СПИСОК ДЕЛ</string>
+    <string name="btn_add_task">+ ДОБАВИТЬ</string>
+    <string name="btn_settings">⚙</string>
+
+    <!-- Диалог задачи -->
+    <string name="dialog_new_task">НОВАЯ ЗАДАЧА</string>
+    <string name="hint_title">Заголовок</string>
+    <string name="hint_description">Описание</string>
+    <string name="btn_add">ДОБАВИТЬ</string>
+    <string name="btn_cancel">ОТМЕНА</string>
+
+    <!-- Уведомления -->
+    <string name="notif_title">⏱ Таймер</string>
+    <string name="notif_remaining">Осталось: %s</string>
+    <string name="notif_done_title">⏱ Таймер завершён</string>
+    <string name="notif_done_text">Время вышло!</string>
+    <string name="notif_stop">■ Стоп</string>
+
+    <!-- Настройки -->
+    <string name="settings_title">Настройки</string>
+    <string name="settings_appearance">Внешний вид</string>
+    <string name="settings_theme">Тема</string>
+    <string name="settings_theme_dark">Тёмная</string>
+    <string name="settings_theme_light">Светлая</string>
+    <string name="settings_theme_system">Системная</string>
+    <string name="settings_show_notif">Показывать уведомление</string>
+    <string name="settings_show_tasks">Показывать список дел</string>
+    <string name="settings_language_cat">Языки</string>
+    <string name="settings_language">Язык</string>
+    <string name="settings_fun">Весёлое</string>
+    <string name="settings_crazy">Рандомайзер времени (каждую секунду)</string>
+</resources>

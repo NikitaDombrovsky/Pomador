@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/metal_dark"
+    tools:context=".MainActivity">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:background="@color/metal_accent" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="16dp">
+
+            <!-- Шапка: заголовок + кнопка настроек -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="24dp"
+                android:layout_marginHorizontal="16dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/label_timer"
+                    android:textColor="@color/metal_highlight"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.3" />
+
+                <ImageButton
+                    android:id="@+id/settings_button"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:src="@drawable/ic_settings"
+                    android:background="@android:color/transparent"
+                    android:contentDescription="Settings"
+                    android:padding="8dp" />
+
+            </LinearLayout>
+
+            <!-- Панель таймера -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/timer_card"
+                android:layout_width="280dp"
+                android:layout_height="140dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="16dp"
+                app:cardBackgroundColor="@color/metal_surface"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="8dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:background="@color/metal_accent" />
+
+                    <Chronometer
+                        android:id="@+id/timer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:countDown="true"
+                        android:gravity="center"
+                        android:textColor="@color/timer_text"
+                        android:textSize="56sp"
+                        android:textStyle="bold"
+                        android:fontFamily="monospace" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:background="@color/metal_accent" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <View
+                android:layout_width="200dp"
+                android:layout_height="1dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="24dp"
+                android:background="@color/metal_accent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="16dp"
+                android:text="@string/label_minutes"
+                android:textColor="@color/metal_accent"
+                android:textSize="11sp"
+                android:letterSpacing="0.2" />
+
+            <LinearLayout
+                android:id="@+id/minute_controls"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/subtract_minute_button"
+                    style="@style/MetalButton"
+                    android:layout_width="100dp"
+                    android:layout_height="48dp"
+                    android:layout_marginEnd="12dp"
+                    android:text="@string/btn_sub_min"
+                    android:textSize="12sp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/add_minute_button"
+                    style="@style/MetalButton"
+                    android:layout_width="100dp"
+                    android:layout_height="48dp"
+                    android:text="@string/btn_add_min"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="16dp"
+                android:text="@string/label_seconds"
+                android:textColor="@color/metal_accent"
+                android:textSize="11sp"
+                android:letterSpacing="0.2" />
+
+            <LinearLayout
+                android:id="@+id/second_controls"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/subtract_second_button"
+                    style="@style/MetalButton"
+                    android:layout_width="100dp"
+                    android:layout_height="48dp"
+                    android:layout_marginEnd="12dp"
+                    android:text="@string/btn_sub_sec"
+                    android:textSize="12sp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/add_second_button"
+                    style="@style/MetalButton"
+                    android:layout_width="100dp"
+                    android:layout_height="48dp"
+                    android:text="@string/btn_add_sec"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="200dp"
+                android:layout_height="1dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="24dp"
+                android:background="@color/metal_accent" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/start_reset_button"
+                style="@style/MetalButton"
+                android:layout_width="200dp"
+                android:layout_height="56dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="24dp"
+                android:text="@string/btn_start"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.15"
+                app:backgroundTint="@color/metal_surface"
+                app:strokeColor="@color/metal_highlight"
+                app:strokeWidth="2dp" />
+
+            <!-- Секция списка дел (скрывается через настройки) -->
+            <LinearLayout
+                android:id="@+id/tasks_section"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:background="@color/metal_accent" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/label_tasks"
+                        android:textColor="@color/metal_highlight"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:letterSpacing="0.2" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/add_task_button"
+                        style="@style/MetalButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:text="@string/btn_add_task"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/tasks_recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:nestedScrollingEnabled="false" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:background="@color/metal_accent" />
+
+</LinearLayout>

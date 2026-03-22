@@ -1,0 +1,41 @@
+<resources>
+    <string name="app_name">Timer</string>
+
+    <string name="label_timer">⏱ TIMER</string>
+    <string name="label_minutes">MINUTES</string>
+    <string name="label_seconds">SECONDS</string>
+    <string name="btn_add_min">+ 1 MIN</string>
+    <string name="btn_sub_min">− 1 MIN</string>
+    <string name="btn_add_sec">+ 1 SEC</string>
+    <string name="btn_sub_sec">− 1 SEC</string>
+    <string name="btn_start">▶  START</string>
+    <string name="btn_reset">■  RESET</string>
+    <string name="label_tasks">📋 TO-DO LIST</string>
+    <string name="btn_add_task">+ ADD</string>
+    <string name="btn_settings">⚙</string>
+
+    <string name="dialog_new_task">NEW TASK</string>
+    <string name="hint_title">Title</string>
+    <string name="hint_description">Description</string>
+    <string name="btn_add">ADD</string>
+    <string name="btn_cancel">CANCEL</string>
+
+    <string name="notif_title">⏱ Timer</string>
+    <string name="notif_remaining">Remaining: %s</string>
+    <string name="notif_done_title">⏱ Timer finished</string>
+    <string name="notif_done_text">Time\'s up!</string>
+    <string name="notif_stop">■ Stop</string>
+
+    <string name="settings_title">Settings</string>
+    <string name="settings_appearance">Appearance</string>
+    <string name="settings_theme">Theme</string>
+    <string name="settings_theme_dark">Dark</string>
+    <string name="settings_theme_light">Light</string>
+    <string name="settings_theme_system">System</string>
+    <string name="settings_show_notif">Show notification</string>
+    <string name="settings_show_tasks">Show to-do list</string>
+    <string name="settings_language_cat">Languages</string>
+    <string name="settings_language">Language</string>
+    <string name="settings_fun">Fun</string>
+    <string name="settings_crazy">Time randomizer (every second)</string>
+</resources>
