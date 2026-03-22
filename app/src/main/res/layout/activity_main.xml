@@ -12,7 +12,7 @@
         android:id="@+id/start_reset_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="444dp"
+        android:layout_marginTop="324dp"
         android:layout_marginEnd="68dp"
         android:contentDescription="Start or reset timer"
         android:src="@drawable/metal"
