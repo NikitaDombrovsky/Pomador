@@ -37,5 +37,20 @@
     <string name="settings_language_cat">Languages</string>
     <string name="settings_language">Language</string>
     <string name="settings_fun">Fun</string>
-    <string name="settings_crazy">Time randomizer (every second)</string>
+    <string name="settings_crazy">Time randomizer</string>
+
+    <!-- Task statuses -->
+    <string name="status_pending">Pending</string>
+    <string name="status_doing">Doing</string>
+    <string name="status_done">Done</string>
+
+    <!-- Modes -->
+    <string name="mode_timer">⏱ Timer</string>
+    <string name="mode_pomodoro">🍅 Pomodoro</string>
+
+    <!-- Melody -->
+    <string name="settings_melody_cat">Melody</string>
+    <string name="settings_ringtone">Finish sound</string>
+    <string name="settings_ringtone_none">No sound</string>
+    <string name="settings_volume">Volume</string>
 </resources>

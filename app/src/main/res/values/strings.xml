@@ -41,5 +41,20 @@
     <string name="settings_language_cat">Языки</string>
     <string name="settings_language">Язык</string>
     <string name="settings_fun">Весёлое</string>
-    <string name="settings_crazy">Рандомайзер времени (каждую секунду)</string>
+    <string name="settings_crazy">Рандомайзер времени</string>
+
+    <!-- Статусы задач -->
+    <string name="status_pending">В ожидании</string>
+    <string name="status_doing">Делаю</string>
+    <string name="status_done">Сделано</string>
+
+    <!-- Режимы -->
+    <string name="mode_timer">⏱ Таймер</string>
+    <string name="mode_pomodoro">🍅 Помодоро</string>
+
+    <!-- Мелодия -->
+    <string name="settings_melody_cat">Мелодия</string>
+    <string name="settings_ringtone">Мелодия окончания</string>
+    <string name="settings_ringtone_none">Без звука</string>
+    <string name="settings_volume">Громкость</string>
 </resources>

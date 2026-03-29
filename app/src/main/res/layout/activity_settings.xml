@@ -215,6 +215,115 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
+            <!-- ═══ МЕЛОДИЯ ═══ -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/settings_melody_cat"
+                android:textColor="?attr/appOrangeColor"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.2"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp" />
+
+            <!-- Выбор рингтона -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                app:cardBackgroundColor="?attr/appSurfaceColor"
+                app:cardCornerRadius="6dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="16dp"
+                    android:gravity="center_vertical">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/settings_ringtone"
+                            android:textColor="?attr/appTextColor"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/tv_ringtone_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:textColor="?attr/appSubtextColor"
+                            android:textSize="12sp" />
+
+                    </LinearLayout>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_pick_ringtone"
+                        style="@style/MetalButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:text="Выбрать"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Громкость -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardBackgroundColor="?attr/appSurfaceColor"
+                app:cardCornerRadius="6dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/settings_volume"
+                            android:textColor="?attr/appTextColor"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/tv_volume_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="?attr/appSubtextColor"
+                            android:textSize="13sp" />
+
+                    </LinearLayout>
+
+                    <SeekBar
+                        android:id="@+id/sb_volume"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:max="100"
+                        android:progress="80" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
             <!-- ═══ ВЕСЁЛОЕ ═══ -->
             <TextView
                 android:layout_width="match_parent"

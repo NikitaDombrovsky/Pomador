@@ -15,9 +15,11 @@ import androidx.core.app.NotificationCompat;
 
 public class TimerService extends Service {
 
-    public static final String ACTION_START  = "com.example.projet.TIMER_START";
-    public static final String ACTION_STOP   = "com.example.projet.TIMER_STOP";
-    public static final String EXTRA_DURATION_MS = "duration_ms";
+    public static final String ACTION_START   = "com.example.projet.TIMER_START";
+    public static final String ACTION_STOP    = "com.example.projet.TIMER_STOP";
+    public static final String ACTION_QUERY   = "com.example.projet.TIMER_QUERY"; // запрос состояния
+    public static final String EXTRA_DURATION_MS  = "duration_ms";
+    public static final String EXTRA_END_TIME_MS  = "end_time_ms"; // абсолютное время окончания
 
     // Broadcast отправляемый в MainActivity каждую секунду
     public static final String ACTION_TICK   = "com.example.projet.TIMER_TICK";
@@ -50,11 +52,21 @@ public class TimerService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        if (intent == null) return START_NOT_STICKY;
+        if (intent == null) {
+            // Сервис перезапущен системой — продолжаем если endTimeMs ещё в будущем
+            if (endTimeMs > System.currentTimeMillis()) {
+                running = true;
+                handler.removeCallbacks(tickRunnable);
+                handler.post(tickRunnable);
+            } else {
+                stopSelf();
+            }
+            return START_STICKY;
+        }
 
         if (ACTION_START.equals(intent.getAction())) {
             long durationMs = intent.getLongExtra(EXTRA_DURATION_MS, 0);
-            if (durationMs <= 0) { stopSelf(); return START_NOT_STICKY; }
+            if (durationMs <= 0) { stopSelf(); return START_STICKY; }
 
             endTimeMs = System.currentTimeMillis() + durationMs;
             running = true;
@@ -66,9 +78,16 @@ public class TimerService extends Service {
 
         } else if (ACTION_STOP.equals(intent.getAction())) {
             stopTimer();
+
+        } else if (ACTION_QUERY.equals(intent.getAction())) {
+            // MainActivity спрашивает — живой ли сервис и сколько осталось
+            if (running) {
+                long remaining = endTimeMs - System.currentTimeMillis();
+                sendTickBroadcast(Math.max(0, remaining));
+            }
         }
 
-        return START_NOT_STICKY;
+        return START_STICKY;
     }
 
     private void stopTimer() {
