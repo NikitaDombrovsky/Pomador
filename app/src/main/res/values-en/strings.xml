@@ -47,6 +47,20 @@
     <!-- Modes -->
     <string name="mode_timer">⏱ Timer</string>
     <string name="mode_pomodoro">🍅 Pomodoro</string>
+    <string name="mode_namaz">☪ Namaz</string>
+    <string name="mode_casino">🎰 Casino</string>
+
+    <!-- Namaz -->
+    <string name="namaz_skip">⏭ Skip</string>
+    <string name="namaz_step_of">%1$d / %2$d</string>
+
+    <!-- Casino -->
+    <string name="casino_rules_btn">📜 Rules</string>
+    <string name="casino_spin">🎰 Spin</string>
+    <string name="casino_wins_label">🏆 Winning combinations</string>
+    <string name="casino_win">🎉 Win!</string>
+    <string name="casino_lose">No match</string>
+    <string name="casino_rules_text">1. You need three or four matching digits.\n\n2. If you didn\'t understand rule two, re-read rule one and then read rule two.</string>
 
     <!-- Melody -->
     <string name="settings_melody_cat">Melody</string>

@@ -58,34 +58,58 @@
 
             </LinearLayout>
 
-            <!-- Переключатель режимов -->
-            <LinearLayout
-                android:layout_width="wrap_content"
+            <!-- Переключатель режимов — прокручиваемый -->
+            <HorizontalScrollView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
                 android:layout_marginTop="12dp"
-                android:orientation="horizontal"
-                android:background="?attr/appSurfaceColor"
-                android:padding="4dp">
+                android:scrollbars="none"
+                android:paddingHorizontal="16dp">
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_mode_timer"
-                    style="@style/MetalButton"
-                    android:layout_width="120dp"
-                    android:layout_height="36dp"
-                    android:text="@string/mode_timer"
-                    android:textSize="12sp" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:background="?attr/appSurfaceColor"
+                    android:padding="4dp">
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_mode_pomodoro"
-                    style="@style/MetalButton"
-                    android:layout_width="120dp"
-                    android:layout_height="36dp"
-                    android:layout_marginStart="4dp"
-                    android:text="@string/mode_pomodoro"
-                    android:textSize="12sp" />
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_mode_timer"
+                        style="@style/MetalButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="36dp"
+                        android:text="@string/mode_timer"
+                        android:textSize="11sp" />
 
-            </LinearLayout>
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_mode_pomodoro"
+                        style="@style/MetalButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="36dp"
+                        android:layout_marginStart="4dp"
+                        android:text="@string/mode_pomodoro"
+                        android:textSize="11sp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_mode_namaz"
+                        style="@style/MetalButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="36dp"
+                        android:layout_marginStart="4dp"
+                        android:text="@string/mode_namaz"
+                        android:textSize="11sp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_mode_casino"
+                        style="@style/MetalButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="36dp"
+                        android:layout_marginStart="4dp"
+                        android:text="@string/mode_casino"
+                        android:textSize="11sp" />
+
+                </LinearLayout>
+            </HorizontalScrollView>
 
             <!-- Панель таймера -->
             <androidx.cardview.widget.CardView
@@ -136,7 +160,7 @@
                 android:layout_marginTop="24dp"
                 android:background="?attr/appDividerColor" />
 
-            <!-- Кнопки настройки времени (скрываются в Помодоро) -->
+            <!-- Кнопки настройки времени (только Таймер) -->
             <LinearLayout
                 android:id="@+id/timer_controls"
                 android:layout_width="wrap_content"
@@ -198,6 +222,30 @@
 
             </LinearLayout>
 
+            <!-- Кнопка намаза "Пропустить" (только режим Намаз) -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_namaz_skip"
+                style="@style/MetalButton"
+                android:layout_width="200dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="8dp"
+                android:text="@string/namaz_skip"
+                android:textSize="13sp"
+                android:visibility="gone" />
+
+            <!-- Кнопка правил казино (только режим Казино) -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_casino_rules"
+                style="@style/MetalButton"
+                android:layout_width="200dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="8dp"
+                android:text="@string/casino_rules_btn"
+                android:textSize="13sp"
+                android:visibility="gone" />
+
             <View
                 android:layout_width="200dp"
                 android:layout_height="1dp"
@@ -219,7 +267,7 @@
                 app:strokeColor="?attr/appHighlightColor"
                 app:strokeWidth="2dp" />
 
-            <!-- Секция списка дел -->
+            <!-- Секция списка дел (Таймер + Помодоро) -->
             <LinearLayout
                 android:id="@+id/tasks_section"
                 android:layout_width="match_parent"
@@ -266,6 +314,174 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
+                    android:nestedScrollingEnabled="false" />
+
+            </LinearLayout>
+
+            <!-- Секция намаза -->
+            <LinearLayout
+                android:id="@+id/namaz_section"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone"
+                android:layout_marginTop="24dp"
+                android:layout_marginHorizontal="16dp">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="?attr/appDividerColor"
+                    android:layout_marginBottom="16dp" />
+
+                <TextView
+                    android:id="@+id/tv_namaz_current"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textColor="?attr/appHighlightColor"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="8dp" />
+
+                <TextView
+                    android:id="@+id/tv_namaz_progress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textColor="?attr/appSubtextColor"
+                    android:textSize="13sp"
+                    android:layout_marginBottom="16dp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/namaz_recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false" />
+
+            </LinearLayout>
+
+            <!-- Секция казино -->
+            <LinearLayout
+                android:id="@+id/casino_section"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone"
+                android:layout_marginTop="24dp"
+                android:layout_marginHorizontal="16dp">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="?attr/appDividerColor"
+                    android:layout_marginBottom="16dp" />
+
+                <!-- Слот-машина -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="horizontal"
+                    android:background="?attr/appSurfaceColor"
+                    android:padding="12dp">
+
+                    <TextView
+                        android:id="@+id/slot1"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:gravity="center"
+                        android:textSize="32sp"
+                        android:textStyle="bold"
+                        android:textColor="?attr/appTimerTextColor"
+                        android:text="?" />
+
+                    <TextView
+                        android:id="@+id/slot2"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:gravity="center"
+                        android:textSize="32sp"
+                        android:textStyle="bold"
+                        android:textColor="?attr/appTimerTextColor"
+                        android:layout_marginHorizontal="8dp"
+                        android:text="?" />
+
+                    <TextView
+                        android:id="@+id/slot3"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:gravity="center"
+                        android:textSize="32sp"
+                        android:textStyle="bold"
+                        android:textColor="?attr/appTimerTextColor"
+                        android:text="?" />
+
+                    <TextView
+                        android:id="@+id/slot4"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:gravity="center"
+                        android:textSize="32sp"
+                        android:textStyle="bold"
+                        android:textColor="?attr/appTimerTextColor"
+                        android:layout_marginStart="8dp"
+                        android:text="?" />
+
+                </LinearLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_spin"
+                    style="@style/MetalButton"
+                    android:layout_width="200dp"
+                    android:layout_height="52dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="12dp"
+                    android:text="@string/casino_spin"
+                    android:textSize="14sp"
+                    app:strokeColor="?attr/appHighlightColor"
+                    app:strokeWidth="2dp" />
+
+                <TextView
+                    android:id="@+id/tv_casino_result"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginTop="8dp"
+                    android:textSize="14sp"
+                    android:textColor="?attr/appSubtextColor" />
+
+                <!-- Список выигрышных комбинаций -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="8dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/casino_wins_label"
+                        android:textColor="?attr/appHighlightColor"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_win_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="?attr/appSubtextColor"
+                        android:textSize="13sp" />
+
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/casino_wins_recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:nestedScrollingEnabled="false" />
 
             </LinearLayout>

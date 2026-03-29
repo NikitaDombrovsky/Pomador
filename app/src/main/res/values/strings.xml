@@ -51,6 +51,20 @@
     <!-- Режимы -->
     <string name="mode_timer">⏱ Таймер</string>
     <string name="mode_pomodoro">🍅 Помодоро</string>
+    <string name="mode_namaz">☪ Намаз</string>
+    <string name="mode_casino">🎰 Казино</string>
+
+    <!-- Намаз -->
+    <string name="namaz_skip">⏭ Пропустить</string>
+    <string name="namaz_step_of">%1$d / %2$d</string>
+
+    <!-- Казино -->
+    <string name="casino_rules_btn">📜 Правила</string>
+    <string name="casino_spin">🎰 Крутить</string>
+    <string name="casino_wins_label">🏆 Выигрышные комбинации</string>
+    <string name="casino_win">🎉 Выигрыш!</string>
+    <string name="casino_lose">Нет совпадений</string>
+    <string name="casino_rules_text">1. Нужно чтобы три или четыре цифры совпадали.\n\n2. Если не поняли второе правило, то перечитайте первое правило и после этого читайте второе правило.</string>
 
     <!-- Мелодия -->
     <string name="settings_melody_cat">Мелодия</string>

@@ -13,6 +13,7 @@ public class Prefs {
     public static final String KEY_CRAZY_MODE  = "crazy_mode";
     public static final String KEY_TIMER_MS    = "timer_ms";
     public static final String KEY_TASKS_JSON  = "tasks_json";
+    public static final String KEY_CASINO_WINS = "casino_wins_json";
     public static final String KEY_RINGTONE    = "ringtone_uri";  // URI рингтона
     public static final String KEY_VOLUME      = "ringtone_vol";  // 0..100
 

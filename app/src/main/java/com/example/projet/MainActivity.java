@@ -45,6 +45,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -61,9 +62,40 @@ public class MainActivity extends AppCompatActivity {
     private View tasksSection;
     private View timerControls;
     private TextView labelMode;
-    private MaterialButton btnModeTimer, btnModePomodoro;
+    private MaterialButton btnModeTimer, btnModePomodoro, btnModeNamaz, btnModeCasino;
     private boolean isPomodoroMode = false;
-    private static final long POMODORO_MS = 25 * 60 * 1_000L; // 25 минут
+    private static final long POMODORO_MS = 25 * 60 * 1_000L;
+    private static final long BREAK_MS    =  5 * 60 * 1_000L;
+    private boolean isBreak = false;
+    private int     pomodoroTaskIndex = 0;
+
+    // Режим
+    private enum Mode { TIMER, POMODORO, NAMAZ, CASINO }
+    private Mode currentMode = Mode.TIMER;
+
+    // Намаз
+    private static final String[][] NAMAZ_STEPS = {
+        {"☀️ Фаджр",   "2 ракаата",  "5 мин"},
+        {"🌅 Зухр",    "4 ракаата",  "8 мин"},
+        {"🌤 Аср",     "4 ракаата",  "8 мин"},
+        {"🌇 Магриб",  "3 ракаата",  "6 мин"},
+        {"🌙 Иша",     "4 ракаата",  "8 мин"}
+    };
+    private int namazStep = 0;
+    private boolean[] namazDone;
+    private View namazSection;
+    private TextView tvNamazCurrent, tvNamazProgress;
+    private RecyclerView namazRecycler;
+    private NamazAdapter namazAdapter;
+
+    // Казино
+    private View casinoSection;
+    private TextView slot1, slot2, slot3, slot4, tvCasinoResult, tvWinCount;
+    private RecyclerView casinoWinsRecycler;
+    private final List<String> casinoWins = new ArrayList<>();
+    private CasinoWinsAdapter casinoWinsAdapter;
+    private int casinoWinCount = 0;
+    private boolean casinoSpinning = false;
     private long currentDurationMs;
     private long startedDurationMs;
     private boolean isRunning;
@@ -116,12 +148,39 @@ public class MainActivity extends AppCompatActivity {
                 timer.stop();
                 isRunning = false;
                 currentDurationMs = 0L;
-                updateTimerDisplay();
                 startResetButton.setText(getString(R.string.btn_start));
-                sendFinishedNotification();
                 playFinishSound();
-                crazyHandler.removeCallbacks(crazyRunnable);
-                if (Prefs.crazyMode(MainActivity.this)) crazyHandler.post(crazyRunnable);
+
+                if (isPomodoroMode) {
+                    onPomodoroSegmentFinished();
+                } else if (currentMode == Mode.NAMAZ) {
+                    namazDone[namazStep] = true;
+                    namazStep++;
+                    if (namazStep < NAMAZ_STEPS.length) {
+                        currentDurationMs = namazStepMs(namazStep);
+                        updateNamazUI();
+                        // Автозапуск следующего шага
+                        startedDurationMs = currentDurationMs;
+                        timer.setBase(SystemClock.elapsedRealtime() + currentDurationMs);
+                        timer.start();
+                        isRunning = true;
+                        if (Prefs.showNotif(MainActivity.this)) {
+                            Intent si = new Intent(MainActivity.this, TimerService.class);
+                            si.setAction(TimerService.ACTION_START);
+                            si.putExtra(TimerService.EXTRA_DURATION_MS, currentDurationMs);
+                            startForegroundService(si);
+                        }
+                    } else {
+                        updateTimerDisplay();
+                        updateNamazUI();
+                        sendFinishedNotification();
+                    }
+                } else {
+                    updateTimerDisplay();
+                    sendFinishedNotification();
+                    crazyHandler.removeCallbacks(crazyRunnable);
+                    if (Prefs.crazyMode(MainActivity.this)) crazyHandler.post(crazyRunnable);
+                }
                 return;
             }
 
@@ -167,6 +226,38 @@ public class MainActivity extends AppCompatActivity {
         labelMode = findViewById(R.id.label_mode);
         btnModeTimer = findViewById(R.id.btn_mode_timer);
         btnModePomodoro = findViewById(R.id.btn_mode_pomodoro);
+        btnModeNamaz = findViewById(R.id.btn_mode_namaz);
+        btnModeCasino = findViewById(R.id.btn_mode_casino);
+
+        // Намаз
+        namazSection = findViewById(R.id.namaz_section);
+        tvNamazCurrent = findViewById(R.id.tv_namaz_current);
+        tvNamazProgress = findViewById(R.id.tv_namaz_progress);
+        namazRecycler = findViewById(R.id.namaz_recycler);
+        namazDone = new boolean[NAMAZ_STEPS.length];
+        namazAdapter = new NamazAdapter(NAMAZ_STEPS, namazDone);
+        namazRecycler.setLayoutManager(new LinearLayoutManager(this));
+        namazRecycler.setAdapter(namazAdapter);
+        namazRecycler.setNestedScrollingEnabled(false);
+
+        // Казино
+        casinoSection = findViewById(R.id.casino_section);
+        slot1 = findViewById(R.id.slot1);
+        slot2 = findViewById(R.id.slot2);
+        slot3 = findViewById(R.id.slot3);
+        slot4 = findViewById(R.id.slot4);
+        tvCasinoResult = findViewById(R.id.tv_casino_result);
+        casinoWinsRecycler = findViewById(R.id.casino_wins_recycler);
+        tvWinCount = findViewById(R.id.tv_win_count);
+        casinoWinsAdapter = new CasinoWinsAdapter(casinoWins);
+        casinoWinsRecycler.setLayoutManager(new LinearLayoutManager(this));
+        casinoWinsRecycler.setAdapter(casinoWinsAdapter);
+        casinoWinsRecycler.setNestedScrollingEnabled(false);
+        loadCasinoWins();
+
+        findViewById(R.id.btn_spin).setOnClickListener(v -> spinCasino());
+        findViewById(R.id.btn_casino_rules).setOnClickListener(v -> showCasinoRules());
+        findViewById(R.id.btn_namaz_skip).setOnClickListener(v -> skipNamazStep());
 
         currentDurationMs = Prefs.timerMs(this);
         startedDurationMs = 0L;
@@ -181,8 +272,10 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.settings_button).setOnClickListener(v ->
                 startActivity(new Intent(this, SettingsActivity.class)));
 
-        btnModeTimer.setOnClickListener(v -> setMode(false));
-        btnModePomodoro.setOnClickListener(v -> setMode(true));
+        btnModeTimer.setOnClickListener(v -> setMode(Mode.TIMER));
+        btnModePomodoro.setOnClickListener(v -> setMode(Mode.POMODORO));
+        btnModeNamaz.setOnClickListener(v -> setMode(Mode.NAMAZ));
+        btnModeCasino.setOnClickListener(v -> setMode(Mode.CASINO));
 
         tasksRecycler = findViewById(R.id.tasks_recycler);
 
@@ -276,32 +369,283 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void setMode(boolean pomodoro) {
-        if (isPomodoroMode == pomodoro) return;
-        isPomodoroMode = pomodoro;
+    private void setMode(Mode mode) {
+        if (currentMode == mode) return;
+        currentMode = mode;
+        isPomodoroMode = (mode == Mode.POMODORO);
 
-        // Плавная анимация кнопок управления временем
-        if (pomodoro) {
-            timerControls.animate().alpha(0f).setDuration(250)
-                    .withEndAction(() -> timerControls.setVisibility(View.GONE)).start();
-        } else {
-            timerControls.setVisibility(View.VISIBLE);
-            timerControls.animate().alpha(1f).setDuration(250).start();
+        // Видимость секций
+        boolean isTimer    = mode == Mode.TIMER;
+        boolean isPomodoro = mode == Mode.POMODORO;
+        boolean isNamaz    = mode == Mode.NAMAZ;
+        boolean isCasino   = mode == Mode.CASINO;
+
+        // timer_controls — только Таймер
+        setVisibilityAnimated(timerControls, isTimer);
+        // tasks_section — Таймер + Помодоро
+        if (tasksSection != null)
+            tasksSection.setVisibility((isTimer || isPomodoro) ? View.VISIBLE : View.GONE);
+        namazSection.setVisibility(isNamaz ? View.VISIBLE : View.GONE);
+        casinoSection.setVisibility(isCasino ? View.VISIBLE : View.GONE);
+        findViewById(R.id.btn_namaz_skip).setVisibility(isNamaz ? View.VISIBLE : View.GONE);
+        findViewById(R.id.btn_casino_rules).setVisibility(isCasino ? View.VISIBLE : View.GONE);
+        // Таймер скрываем в казино
+        findViewById(R.id.timer_card).setVisibility(isCasino ? View.GONE : View.VISIBLE);
+        findViewById(R.id.start_reset_button).setVisibility(isCasino ? View.GONE : View.VISIBLE);
+
+        switch (mode) {
+            case TIMER:
+                labelMode.setText(getString(R.string.label_timer));
+                currentDurationMs = Prefs.timerMs(this);
+                tasksRecycler.setAdapter(taskAdapter);
+                if (!isRunning) updateTimerDisplay();
+                break;
+            case POMODORO:
+                labelMode.setText(getString(R.string.mode_pomodoro));
+                currentDurationMs = !pomodoroList.isEmpty()
+                        ? pomodoroList.get(0).tomatoes * POMODORO_MS : POMODORO_MS;
+                tasksRecycler.setAdapter(pomodoroAdapter);
+                if (!isRunning) updateTimerDisplay();
+                break;
+            case NAMAZ:
+                labelMode.setText(getString(R.string.mode_namaz));
+                namazStep = 0;
+                namazDone = new boolean[NAMAZ_STEPS.length];
+                namazAdapter.reset(namazDone);
+                updateNamazUI();
+                // Таймер по первому шагу
+                currentDurationMs = namazStepMs(0);
+                if (!isRunning) updateTimerDisplay();
+                break;
+            case CASINO:
+                labelMode.setText(getString(R.string.mode_casino));
+                break;
         }
+    }
 
-        // Меняем адаптер — никакого переиспользования ViewHolder между режимами
-        tasksRecycler.setAdapter(pomodoro ? pomodoroAdapter : taskAdapter);
-
-        if (pomodoro) {
-            labelMode.setText(getString(R.string.mode_pomodoro));
-            currentDurationMs = (!pomodoroList.isEmpty())
-                    ? pomodoroList.get(0).tomatoes * POMODORO_MS
-                    : POMODORO_MS;
+    private void setVisibilityAnimated(View v, boolean show) {
+        if (show) {
+            v.setVisibility(View.VISIBLE);
+            v.animate().alpha(1f).setDuration(250).start();
         } else {
-            labelMode.setText(getString(R.string.label_timer));
-            currentDurationMs = Prefs.timerMs(this);
+            v.animate().alpha(0f).setDuration(250)
+                    .withEndAction(() -> v.setVisibility(View.GONE)).start();
         }
-        if (!isRunning) updateTimerDisplay();
+    }
+
+    // ── Намаз ──────────────────────────────────────────────
+
+    private long namazStepMs(int step) {
+        // Парсим минуты из строки "X мин"
+        try {
+            String s = NAMAZ_STEPS[step][2].replace(" мин", "").trim();
+            return Long.parseLong(s) * ONE_MINUTE_MS;
+        } catch (Exception e) { return 5 * ONE_MINUTE_MS; }
+    }
+
+    private void updateNamazUI() {
+        if (namazStep < NAMAZ_STEPS.length) {
+            tvNamazCurrent.setText(NAMAZ_STEPS[namazStep][0] + " — " + NAMAZ_STEPS[namazStep][1]);
+            tvNamazProgress.setText(getString(R.string.namaz_step_of,
+                    namazStep + 1, NAMAZ_STEPS.length));
+        } else {
+            tvNamazCurrent.setText("✅ Намаз завершён");
+            tvNamazProgress.setText("");
+        }
+        namazAdapter.notifyDataSetChanged();
+    }
+
+    private void skipNamazStep() {
+        if (namazStep >= NAMAZ_STEPS.length) return;
+        // Останавливаем текущий таймер
+        if (isRunning) {
+            Intent stop = new Intent(this, TimerService.class);
+            stop.setAction(TimerService.ACTION_STOP);
+            startService(stop);
+            timer.stop();
+            isRunning = false;
+            startResetButton.setText(getString(R.string.btn_start));
+        }
+        namazDone[namazStep] = true;
+        namazStep++;
+        if (namazStep < NAMAZ_STEPS.length) {
+            currentDurationMs = namazStepMs(namazStep);
+            updateTimerDisplay();
+        } else {
+            currentDurationMs = 0;
+            updateTimerDisplay();
+            sendFinishedNotification();
+        }
+        updateNamazUI();
+    }
+
+    // ── Казино ─────────────────────────────────────────────
+
+    private void spinCasino() {
+        if (casinoSpinning) return;
+        casinoSpinning = true;
+        tvCasinoResult.setText("");
+
+        // Анимация — мелькание цифр 10мс
+        final Handler h = new Handler(Looper.getMainLooper());
+        final int[] ticks = {0};
+        final int totalTicks = 8; // ~80мс мелькания
+        Runnable anim = new Runnable() {
+            @Override public void run() {
+                slot1.setText(String.valueOf(random.nextInt(10)));
+                slot2.setText(String.valueOf(random.nextInt(10)));
+                slot3.setText(String.valueOf(random.nextInt(10)));
+                slot4.setText(String.valueOf(random.nextInt(10)));
+                ticks[0]++;
+                if (ticks[0] < totalTicks) {
+                    h.postDelayed(this, 10);
+                } else {
+                    // Финальный результат
+                    int[] digits = new int[4];
+                    for (int i = 0; i < 4; i++) digits[i] = random.nextInt(10);
+                    slot1.setText(String.valueOf(digits[0]));
+                    slot2.setText(String.valueOf(digits[1]));
+                    slot3.setText(String.valueOf(digits[2]));
+                    slot4.setText(String.valueOf(digits[3]));
+
+                    boolean win = checkCasinoWin(digits);
+                    if (win) {
+                        tvCasinoResult.setText(getString(R.string.casino_win));
+                        tvCasinoResult.setTextColor(android.graphics.Color.parseColor("#43A047"));
+                        String combo = digits[0] + " " + digits[1] + " " + digits[2] + " " + digits[3];
+                        casinoWins.add(0, combo);
+                        if (casinoWins.size() > 10) casinoWins.remove(casinoWins.size() - 1);
+                        casinoWinsAdapter.notifyDataSetChanged();
+                        casinoWinCount++;
+                        updateWinCount();
+                        saveCasinoWins();
+                    } else {
+                        tvCasinoResult.setText(getString(R.string.casino_lose));
+                        tvCasinoResult.setTextColor(android.graphics.Color.parseColor("#E53935"));
+                    }
+                    casinoSpinning = false;
+                }
+            }
+        };
+        h.post(anim);
+    }
+
+    private void updateWinCount() {
+        if (tvWinCount != null)
+            tvWinCount.setText("🏆 " + casinoWinCount);
+    }
+
+    private void saveCasinoWins() {
+        try {
+            JSONArray arr = new JSONArray();
+            for (String w : casinoWins) arr.put(w);
+            Prefs.get(this).edit()
+                    .putString(Prefs.KEY_CASINO_WINS, arr.toString())
+                    .putInt("casino_win_count", casinoWinCount)
+                    .apply();
+        } catch (Exception ignored) {}
+    }
+
+    private void loadCasinoWins() {
+        try {
+            JSONArray arr = new JSONArray(
+                    Prefs.get(this).getString(Prefs.KEY_CASINO_WINS, "[]"));
+            casinoWins.clear();
+            for (int i = 0; i < Math.min(arr.length(), 10); i++)
+                casinoWins.add(arr.getString(i));
+            casinoWinsAdapter.notifyDataSetChanged();
+        } catch (Exception ignored) {}
+        casinoWinCount = Prefs.get(this).getInt("casino_win_count", 0);
+        updateWinCount();
+    }
+
+    private boolean checkCasinoWin(int[] d) {
+        // Считаем частоту каждой цифры
+        int[] freq = new int[10];
+        for (int v : d) freq[v]++;
+        for (int f : freq) if (f >= 3) return true;
+        return false;
+    }
+
+    private void showCasinoRules() {
+        new AlertDialog.Builder(this)
+                .setTitle(getString(R.string.casino_rules_btn))
+                .setMessage(getString(R.string.casino_rules_text))
+                .setPositiveButton("OK", null)
+                .show();
+    }
+
+    /** Вызывается когда закончился один сегмент (25 мин работы или 5 мин перерыва) */
+    private void onPomodoroSegmentFinished() {
+        if (isBreak) {
+            // Перерыв закончился — возвращаемся к работе
+            isBreak = false;
+            if (pomodoroTaskIndex < pomodoroList.size()) {
+                TaskAdapter.Task task = pomodoroList.get(pomodoroTaskIndex);
+                if (task.tomatoes > 0) {
+                    startPomodoroSegment(POMODORO_MS, false);
+                } else {
+                    pomodoroTaskIndex++;
+                    advancePomodoroTask();
+                }
+            } else {
+                // Все задачи выполнены
+                updateTimerDisplay();
+                sendFinishedNotification();
+            }
+        } else {
+            // Рабочий сегмент закончился — отнимаем помидорку
+            if (pomodoroTaskIndex < pomodoroList.size()) {
+                TaskAdapter.Task task = pomodoroList.get(pomodoroTaskIndex);
+                task.tomatoes = Math.max(0, task.tomatoes - 1);
+                pomodoroAdapter.notifyItemChanged(pomodoroTaskIndex);
+
+                if (task.tomatoes > 0) {
+                    // Ещё есть помидорки — идём на перерыв
+                    isBreak = true;
+                    startPomodoroSegment(BREAK_MS, true);
+                } else {
+                    // Помидорки кончились — перерыв и потом следующая задача
+                    pomodoroTaskIndex++;
+                    isBreak = true;
+                    startPomodoroSegment(BREAK_MS, true);
+                }
+            } else {
+                updateTimerDisplay();
+                sendFinishedNotification();
+            }
+        }
+    }
+
+    private void advancePomodoroTask() {
+        if (pomodoroTaskIndex < pomodoroList.size()) {
+            startPomodoroSegment(POMODORO_MS, false);
+        } else {
+            currentDurationMs = 0L;
+            updateTimerDisplay();
+            sendFinishedNotification();
+        }
+    }
+
+    private void startPomodoroSegment(long durationMs, boolean breakMode) {
+        currentDurationMs = durationMs;
+        startedDurationMs = durationMs;
+        timer.setBase(SystemClock.elapsedRealtime() + durationMs);
+        timer.start();
+        isRunning = true;
+        startResetButton.setText(getString(R.string.btn_reset));
+
+        // Обновляем заголовок чтобы показать режим
+        labelMode.setText(breakMode
+                ? "☕ Перерыв"
+                : "🍅 Помодоро");
+
+        if (Prefs.showNotif(this)) {
+            Intent startIntent = new Intent(this, TimerService.class);
+            startIntent.setAction(TimerService.ACTION_START);
+            startIntent.putExtra(TimerService.EXTRA_DURATION_MS, durationMs);
+            startForegroundService(startIntent);
+        }
     }
 
     private void adjustTimer(long deltaMs) {
@@ -317,7 +661,16 @@ public class MainActivity extends AppCompatActivity {
             startService(stopIntent);
             timer.stop();
             isRunning = false;
-            currentDurationMs = startedDurationMs;
+            isBreak = false;
+            pomodoroTaskIndex = 0;
+            // Восстанавливаем время
+            if (isPomodoroMode) {
+                currentDurationMs = !pomodoroList.isEmpty()
+                        ? pomodoroList.get(0).tomatoes * POMODORO_MS : POMODORO_MS;
+                labelMode.setText(getString(R.string.mode_pomodoro));
+            } else {
+                currentDurationMs = startedDurationMs;
+            }
             updateTimerDisplay();
             startResetButton.setText(getString(R.string.btn_start));
             crazyHandler.removeCallbacks(crazyRunnable);
@@ -325,8 +678,15 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        if (currentDurationMs <= 0) return;
+        if (isPomodoroMode) {
+            if (pomodoroList.isEmpty()) return;
+            pomodoroTaskIndex = 0;
+            isBreak = false;
+            startPomodoroSegment(POMODORO_MS, false);
+            return;
+        }
 
+        if (currentDurationMs <= 0) return;
         crazyHandler.removeCallbacks(crazyRunnable);
         startedDurationMs = currentDurationMs;
         timer.setBase(SystemClock.elapsedRealtime() + currentDurationMs);
