@@ -2,6 +2,8 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- Тёмная тема -->
     <color name="metal_dark">#1A1A1A</color>
     <color name="metal_surface">#2C2C2C</color>
     <color name="metal_accent">#8A8A8A</color>
@@ -10,4 +12,14 @@
     <color name="metal_red">#CC2200</color>
     <color name="metal_orange">#FF6600</color>
     <color name="timer_text">#F0F0F0</color>
+
+    <!-- Светлая тема -->
+    <color name="light_bg">#F0F0F0</color>
+    <color name="light_surface">#FFFFFF</color>
+    <color name="light_accent">#555555</color>
+    <color name="light_highlight">#333333</color>
+    <color name="light_text">#1A1A1A</color>
+    <color name="light_subtext">#666666</color>
+    <color name="light_divider">#BBBBBB</color>
+    <color name="light_orange">#CC4400</color>
 </resources>

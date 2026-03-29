@@ -5,13 +5,13 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="20dp"
-    android:background="@color/metal_surface">
+    android:background="?attr/appSurfaceColor">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="НОВАЯ ЗАДАЧА"
-        android:textColor="@color/metal_highlight"
+        android:text="@string/dialog_new_task"
+        android:textColor="?attr/appHighlightColor"
         android:textSize="13sp"
         android:textStyle="bold"
         android:letterSpacing="0.2"
@@ -22,14 +22,14 @@
         style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Заголовок"
+        android:hint="@string/hint_title"
         android:layout_marginBottom="12dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/input_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/metal_silver"
+            android:textColor="?attr/appTextColor"
             android:inputType="text" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -39,13 +39,13 @@
         style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Описание">
+        android:hint="@string/hint_description">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/input_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/metal_silver"
+            android:textColor="?attr/appTextColor"
             android:inputType="textMultiLine"
             android:minLines="2" />
 

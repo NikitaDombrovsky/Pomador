@@ -1,21 +1,36 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
+
     <style name="Base.Theme.Projet" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/metal_highlight</item>
-        <item name="colorOnPrimary">@color/metal_dark</item>
-        <item name="colorSurface">@color/metal_surface</item>
-        <item name="colorOnSurface">@color/metal_silver</item>
-        <item name="android:windowBackground">@color/metal_dark</item>
+        <!-- Светлая тема (дефолт) -->
+        <item name="colorPrimary">@color/light_highlight</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSurface">@color/light_surface</item>
+        <item name="colorOnSurface">@color/light_text</item>
+        <item name="android:windowBackground">@color/light_bg</item>
+
+        <!-- Кастомные атрибуты -->
+        <item name="appBgColor">@color/light_bg</item>
+        <item name="appSurfaceColor">@color/light_surface</item>
+        <item name="appAccentColor">@color/light_accent</item>
+        <item name="appHighlightColor">@color/light_highlight</item>
+        <item name="appTextColor">@color/light_text</item>
+        <item name="appSubtextColor">@color/light_subtext</item>
+        <item name="appDividerColor">@color/light_divider</item>
+        <item name="appOrangeColor">@color/light_orange</item>
+        <item name="appTimerTextColor">@color/light_text</item>
+        <item name="appRedColor">@color/metal_red</item>
     </style>
 
     <style name="Theme.Projet" parent="Base.Theme.Projet" />
 
     <style name="MetalButton" parent="Widget.Material3.Button">
-        <item name="android:textColor">@color/metal_silver</item>
+        <item name="android:textColor">?attr/appTextColor</item>
         <item name="android:textStyle">bold</item>
         <item name="android:letterSpacing">0.1</item>
-        <item name="backgroundTint">@color/metal_surface</item>
-        <item name="strokeColor">@color/metal_accent</item>
+        <item name="backgroundTint">?attr/appSurfaceColor</item>
+        <item name="strokeColor">?attr/appAccentColor</item>
         <item name="strokeWidth">1dp</item>
         <item name="cornerRadius">4dp</item>
     </style>
+
 </resources>

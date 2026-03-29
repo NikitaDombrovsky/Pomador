@@ -5,20 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/metal_dark">
+    android:background="?attr/appBgColor">
 
-    <!-- Toolbar -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:background="@color/metal_surface"
-        app:titleTextColor="@color/metal_silver" />
+        android:background="?attr/appSurfaceColor"
+        app:titleTextColor="?attr/appTextColor" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="@color/metal_accent" />
+        android:background="?attr/appDividerColor" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -35,19 +34,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/settings_appearance"
-                android:textColor="@color/metal_orange"
+                android:textColor="?attr/appOrangeColor"
                 android:textSize="12sp"
                 android:textStyle="bold"
                 android:letterSpacing="0.2"
                 android:layout_marginBottom="8dp"
                 android:layout_marginTop="8dp" />
 
-            <!-- Тема -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                app:cardBackgroundColor="@color/metal_surface"
+                app:cardBackgroundColor="?attr/appSurfaceColor"
                 app:cardCornerRadius="6dp">
 
                 <LinearLayout
@@ -60,7 +58,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/settings_theme"
-                        android:textColor="@color/metal_silver"
+                        android:textColor="?attr/appTextColor"
                         android:textSize="14sp"
                         android:layout_marginBottom="12dp" />
 
@@ -75,35 +73,34 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/settings_theme_dark"
-                            android:textColor="@color/metal_accent"
-                            android:buttonTint="@color/metal_highlight" />
+                            android:textColor="?attr/appSubtextColor"
+                            android:buttonTint="?attr/appHighlightColor" />
 
                         <RadioButton
                             android:id="@+id/rb_light"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/settings_theme_light"
-                            android:textColor="@color/metal_accent"
-                            android:buttonTint="@color/metal_highlight" />
+                            android:textColor="?attr/appSubtextColor"
+                            android:buttonTint="?attr/appHighlightColor" />
 
                         <RadioButton
                             android:id="@+id/rb_system"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/settings_theme_system"
-                            android:textColor="@color/metal_accent"
-                            android:buttonTint="@color/metal_highlight" />
+                            android:textColor="?attr/appSubtextColor"
+                            android:buttonTint="?attr/appHighlightColor" />
 
                     </RadioGroup>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- Видимость уведомления -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                app:cardBackgroundColor="@color/metal_surface"
+                app:cardBackgroundColor="?attr/appSurfaceColor"
                 app:cardCornerRadius="6dp">
 
                 <LinearLayout
@@ -118,7 +115,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/settings_show_notif"
-                        android:textColor="@color/metal_silver"
+                        android:textColor="?attr/appTextColor"
                         android:textSize="14sp" />
 
                     <com.google.android.material.switchmaterial.SwitchMaterial
@@ -129,12 +126,11 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- Видимость списка дел -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                app:cardBackgroundColor="@color/metal_surface"
+                app:cardBackgroundColor="?attr/appSurfaceColor"
                 app:cardCornerRadius="6dp">
 
                 <LinearLayout
@@ -149,7 +145,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/settings_show_tasks"
-                        android:textColor="@color/metal_silver"
+                        android:textColor="?attr/appTextColor"
                         android:textSize="14sp" />
 
                     <com.google.android.material.switchmaterial.SwitchMaterial
@@ -165,7 +161,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/settings_language_cat"
-                android:textColor="@color/metal_orange"
+                android:textColor="?attr/appOrangeColor"
                 android:textSize="12sp"
                 android:textStyle="bold"
                 android:letterSpacing="0.2"
@@ -176,7 +172,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                app:cardBackgroundColor="@color/metal_surface"
+                app:cardBackgroundColor="?attr/appSurfaceColor"
                 app:cardCornerRadius="6dp">
 
                 <LinearLayout
@@ -189,7 +185,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/settings_language"
-                        android:textColor="@color/metal_silver"
+                        android:textColor="?attr/appTextColor"
                         android:textSize="14sp"
                         android:layout_marginBottom="12dp" />
 
@@ -204,16 +200,16 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="🇷🇺  Русский"
-                            android:textColor="@color/metal_accent"
-                            android:buttonTint="@color/metal_highlight" />
+                            android:textColor="?attr/appSubtextColor"
+                            android:buttonTint="?attr/appHighlightColor" />
 
                         <RadioButton
                             android:id="@+id/rb_en"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="🇬🇧  English"
-                            android:textColor="@color/metal_accent"
-                            android:buttonTint="@color/metal_highlight" />
+                            android:textColor="?attr/appSubtextColor"
+                            android:buttonTint="?attr/appHighlightColor" />
 
                     </RadioGroup>
                 </LinearLayout>
@@ -224,7 +220,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/settings_fun"
-                android:textColor="@color/metal_orange"
+                android:textColor="?attr/appOrangeColor"
                 android:textSize="12sp"
                 android:textStyle="bold"
                 android:letterSpacing="0.2"
@@ -234,7 +230,7 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardBackgroundColor="@color/metal_surface"
+                app:cardBackgroundColor="?attr/appSurfaceColor"
                 app:cardCornerRadius="6dp">
 
                 <LinearLayout
@@ -249,7 +245,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/settings_crazy"
-                        android:textColor="@color/metal_silver"
+                        android:textColor="?attr/appTextColor"
                         android:textSize="14sp" />
 
                     <com.google.android.material.switchmaterial.SwitchMaterial

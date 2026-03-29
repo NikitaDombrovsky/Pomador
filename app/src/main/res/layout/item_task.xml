@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="16dp"
     android:layout_marginBottom="10dp"
-    app:cardBackgroundColor="@color/metal_surface"
+    app:cardBackgroundColor="?attr/appSurfaceColor"
     app:cardCornerRadius="6dp"
     app:cardElevation="4dp">
 
@@ -15,11 +15,10 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- Верхняя полоса -->
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:background="@color/metal_accent" />
+            android:background="?attr/appDividerColor" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -38,7 +37,7 @@
                     android:id="@+id/task_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/metal_silver"
+                    android:textColor="?attr/appTextColor"
                     android:textSize="15sp"
                     android:textStyle="bold"
                     android:letterSpacing="0.05" />
@@ -48,7 +47,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:textColor="@color/metal_accent"
+                    android:textColor="?attr/appSubtextColor"
                     android:textSize="13sp" />
 
             </LinearLayout>
@@ -61,7 +60,7 @@
                 android:layout_marginStart="8dp"
                 android:text="✕"
                 android:textSize="14sp"
-                app:strokeColor="@color/metal_red"
+                app:strokeColor="?attr/appRedColor"
                 app:strokeWidth="1dp" />
 
         </LinearLayout>
