@@ -157,63 +157,6 @@
             </androidx.cardview.widget.CardView>
 
             <!-- ═══ ЯЗЫКИ ═══ -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/settings_language_cat"
-                android:textColor="?attr/appOrangeColor"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:letterSpacing="0.2"
-                android:layout_marginBottom="8dp"
-                android:layout_marginTop="8dp" />
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:cardBackgroundColor="?attr/appSurfaceColor"
-                app:cardCornerRadius="6dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/settings_language"
-                        android:textColor="?attr/appTextColor"
-                        android:textSize="14sp"
-                        android:layout_marginBottom="12dp" />
-
-                    <RadioGroup
-                        android:id="@+id/rg_language"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <RadioButton
-                            android:id="@+id/rb_ru"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="🇷🇺  Русский"
-                            android:textColor="?attr/appSubtextColor"
-                            android:buttonTint="?attr/appHighlightColor" />
-
-                        <RadioButton
-                            android:id="@+id/rb_en"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="🇬🇧  English"
-                            android:textColor="?attr/appSubtextColor"
-                            android:buttonTint="?attr/appHighlightColor" />
-
-                    </RadioGroup>
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
 
             <!-- ═══ МЕЛОДИЯ ═══ -->
             <TextView

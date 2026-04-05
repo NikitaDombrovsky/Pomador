@@ -83,15 +83,7 @@ public class SettingsActivity extends AppCompatActivity {
         swTasks.setOnCheckedChangeListener((btn, checked) ->
                 prefs.edit().putBoolean(Prefs.KEY_SHOW_TASKS, checked).apply());
 
-        // ── Язык ──
-        RadioGroup rgLang = findViewById(R.id.rg_language);
-        rgLang.check("en".equals(Prefs.language(this)) ? R.id.rb_en : R.id.rb_ru);
-        rgLang.setOnCheckedChangeListener((group, checkedId) -> {
-            String lang = (checkedId == R.id.rb_en) ? "en" : "ru";
-            prefs.edit().putString(Prefs.KEY_LANGUAGE, lang).apply();
-            LocaleHelper.setLocale(this, lang);
-            recreate();
-        });
+
 
         // ── Рандомайзер ──
         SwitchMaterial swCrazy = findViewById(R.id.sw_crazy);
