@@ -1,17 +1,17 @@
 <resources>
     <string name="app_name">Timer</string>
 
-    <string name="label_timer">⏱ TIMER</string>
+    <string name="label_timer">TIMER</string>
     <string name="label_minutes">MINUTES</string>
     <string name="label_seconds">SECONDS</string>
     <string name="btn_add_min">+ 1 MIN</string>
     <string name="btn_sub_min">− 1 MIN</string>
     <string name="btn_add_sec">+ 1 SEC</string>
     <string name="btn_sub_sec">− 1 SEC</string>
-    <string name="btn_start">▶  START</string>
-    <string name="btn_reset">■  RESET</string>
-    <string name="label_tasks">📋 TO-DO LIST</string>
-    <string name="btn_add_task">+ ADD</string>
+    <string name="btn_start">START</string>
+    <string name="btn_reset">RESET</string>
+    <string name="label_tasks">TO-DO LIST</string>
+    <string name="btn_add_task">ADD</string>
     <string name="btn_settings">⚙</string>
 
     <string name="dialog_new_task">NEW TASK</string>
@@ -20,11 +20,11 @@
     <string name="btn_add">ADD</string>
     <string name="btn_cancel">CANCEL</string>
 
-    <string name="notif_title">⏱ Timer</string>
+    <string name="notif_title">Timer</string>
     <string name="notif_remaining">Remaining: %s</string>
-    <string name="notif_done_title">⏱ Timer finished</string>
+    <string name="notif_done_title">Timer finished</string>
     <string name="notif_done_text">Time\'s up!</string>
-    <string name="notif_stop">■ Stop</string>
+    <string name="notif_stop">Stop</string>
 
     <string name="settings_title">Settings</string>
     <string name="settings_appearance">Appearance</string>
@@ -45,20 +45,20 @@
     <string name="status_done">Done</string>
 
     <!-- Modes -->
-    <string name="mode_timer">⏱ Timer</string>
-    <string name="mode_pomodoro">🍅 Pomodoro</string>
-    <string name="mode_namaz">☪ Namaz</string>
-    <string name="mode_casino">🎰 Casino</string>
+    <string name="mode_timer">Timer</string>
+    <string name="mode_pomodoro">Pomodoro</string>
+    <string name="mode_namaz">Namaz</string>
+    <string name="mode_casino">Casino</string>
 
     <!-- Namaz -->
-    <string name="namaz_skip">⏭ Skip</string>
+    <string name="namaz_skip">Skip</string>
     <string name="namaz_step_of">%1$d / %2$d</string>
 
     <!-- Casino -->
-    <string name="casino_rules_btn">📜 Rules</string>
-    <string name="casino_spin">🎰 Spin</string>
-    <string name="casino_wins_label">🏆 Winning combinations</string>
-    <string name="casino_win">🎉 Win!</string>
+    <string name="casino_rules_btn">Rules</string>
+    <string name="casino_spin">Spin</string>
+    <string name="casino_wins_label">Winning combinations</string>
+    <string name="casino_win">Win!</string>
     <string name="casino_lose">No match</string>
     <string name="casino_rules_text">1. You need three or four matching digits.\n\n2. If you didn\'t understand rule two, re-read rule one and then read rule two.</string>
 

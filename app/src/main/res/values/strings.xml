@@ -2,17 +2,17 @@
     <string name="app_name">Таймер</string>
 
     <!-- Главный экран -->
-    <string name="label_timer">⏱ ТАЙМЕР</string>
+    <string name="label_timer">ТАЙМЕР</string>
     <string name="label_minutes">МИНУТЫ</string>
     <string name="label_seconds">СЕКУНДЫ</string>
     <string name="btn_add_min">+ 1 МИН</string>
     <string name="btn_sub_min">− 1 МИН</string>
     <string name="btn_add_sec">+ 1 СЕК</string>
     <string name="btn_sub_sec">− 1 СЕК</string>
-    <string name="btn_start">▶  СТАРТ</string>
-    <string name="btn_reset">■  СБРОС</string>
-    <string name="label_tasks">📋 СПИСОК ДЕЛ</string>
-    <string name="btn_add_task">+ ДОБАВИТЬ</string>
+    <string name="btn_start">СТАРТ</string>
+    <string name="btn_reset">СБРОС</string>
+    <string name="label_tasks">СПИСОК ДЕЛ</string>
+    <string name="btn_add_task">ДОБАВИТЬ</string>
     <string name="btn_settings">⚙</string>
 
     <!-- Диалог задачи -->
@@ -23,11 +23,11 @@
     <string name="btn_cancel">ОТМЕНА</string>
 
     <!-- Уведомления -->
-    <string name="notif_title">⏱ Таймер</string>
+    <string name="notif_title">Таймер</string>
     <string name="notif_remaining">Осталось: %s</string>
-    <string name="notif_done_title">⏱ Таймер завершён</string>
+    <string name="notif_done_title">Таймер завершён</string>
     <string name="notif_done_text">Время вышло!</string>
-    <string name="notif_stop">■ Стоп</string>
+    <string name="notif_stop">Стоп</string>
 
     <!-- Настройки -->
     <string name="settings_title">Настройки</string>
@@ -49,20 +49,20 @@
     <string name="status_done">Сделано</string>
 
     <!-- Режимы -->
-    <string name="mode_timer">⏱ Таймер</string>
-    <string name="mode_pomodoro">🍅 Помодоро</string>
-    <string name="mode_namaz">☪ Намаз</string>
-    <string name="mode_casino">🎰 Казино</string>
+    <string name="mode_timer">Таймер</string>
+    <string name="mode_pomodoro">Помодоро</string>
+    <string name="mode_namaz">Намаз</string>
+    <string name="mode_casino">Казино</string>
 
     <!-- Намаз -->
-    <string name="namaz_skip">⏭ Пропустить</string>
+    <string name="namaz_skip">Пропустить</string>
     <string name="namaz_step_of">%1$d / %2$d</string>
 
     <!-- Казино -->
-    <string name="casino_rules_btn">📜 Правила</string>
-    <string name="casino_spin">🎰 Крутить</string>
-    <string name="casino_wins_label">🏆 Выигрышные комбинации</string>
-    <string name="casino_win">🎉 Выигрыш!</string>
+    <string name="casino_rules_btn">Правила</string>
+    <string name="casino_spin">Крутить</string>
+    <string name="casino_wins_label">Выигрышные комбинации</string>
+    <string name="casino_win">Выигрыш!</string>
     <string name="casino_lose">Нет совпадений</string>
     <string name="casino_rules_text">1. Нужно чтобы три или четыре цифры совпадали.\n\n2. Если не поняли второе правило, то перечитайте первое правило и после этого читайте второе правило.</string>
 
